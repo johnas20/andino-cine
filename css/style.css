@@ -1,4 +1,46 @@
+:root {
+    --bs-primary: #f7b161;
+    --bs-accent: #f05646;
+    --bs-accent-hover: #c52f1f;
+    --bs-black: #221e1d;
+}
+a, .nav-link {
+    color:var(--bs-accent);
+}
+a:hover, .nav-link:hover, a:focus, .nav-link:focus {
+    color:#fff;
+}
+/*LOGO*/
+.logo {
+    width: 140px;
+}
+.cls-1 {
+    fill: var(--bs-accent);
+}
+
+.cls-2 {
+    fill: var(--bs-primary);
+}
+
+.cls-3 {
+    fill: none;
+    stroke: var(--bs-primary);
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+    stroke-width: 6px;
+}
+
 .ranquing {
     margin-top: -4.5rem;
     background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0))
+}
+
+.btn-primary {
+    background-color: var(--bs-accent);
+    border-color: var(--bs-accent);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: var(--bs-accent-hover);
+    border-color: var(--bs-accent-hover);
 }
