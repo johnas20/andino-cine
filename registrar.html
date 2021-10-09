@@ -25,16 +25,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="todasPeliculas.html">Peliculas</a>
+                                <a class="nav-link" href="#">Peliculas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Confitería</a>
                             </li>
                             <li class="nav-item">
-                                <a href="login.html" class="btn btn-primary">Login</a>
+                                <a href="#" class="btn btn-primary">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="registrar.html">Regístrate</a>
@@ -51,37 +51,61 @@
         <!-- Tocar esta parte -->
         <section class="my-4">
             <div class="container">
-                <h3><a href="javascript:history.back()"><i class="bi bi-arrow-left"></i></a><span
-                        class="d-inline-block mx-2"></span>Iniciar
-                    sesión</h3>
+                <h3><a href="#"><i class="bi bi-arrow-left"></i></a><span class="d-inline-block mx-2"></span>Pagina de
+                    registro</h3>
                 <!-- Estructura HTML -->
-                <main class="form-signin">
-                    <form>
-                        <div class="form-floating">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Ingresa tu correo">
-                            </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="nombresRegistros" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="nombresRegistros"
+                                placeholder="Ingresa tu nombre">
                         </div>
-                        <div class="form-floating">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Ingresa tu contraseña">
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="apellidosRegistros" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="apellidosRegistros"
+                                placeholder="Ingresa tu apellido">
                         </div>
-                        <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-                        <div class="text-end mt-2">
-                            <a href="#">Se te olvidó tu contraseña</a>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="emailRegistros" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="emailRegistros" placeholder="Ingresa tu email">
                         </div>
-                        <div class="mt-3">
-                            ¿No tienes cuenta? <a href="#">Registrate aquí</a>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="numberRegistros" class="form-label">Numero de Celular</label>
+                            <input type="number" class="form-control" id="numberRegistros"
+                                placeholder="Ingresa tu numero de celular">
                         </div>
-                        <p class="mt-3 mb-3 text-muted">© 2017–2021</p>
-                    </form>
-                </main>
-
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="contrasenaRegistros" class="form-label">Crear contrasena</label>
+                            <input type="password" class="form-control" id="contrasenaRegistros"
+                                placeholder="Ingresa tu contrasena">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="contrasenabRegistros" class="form-label">Validar contrasena</label>
+                            <input type="password" class="form-control" id="contrasenabRegistros"
+                                placeholder="Valida tu contrasena">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-inline-flex bg-secondary p-3 mt-3">
+                    <i class="bi bi-card-image"></i>
+                    <span class="px-3">Agregar la foto de tu avatar</span>
+                    <button class="btn btn-sm btn-primary" type="submit">Subir Imagen</button>
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-lg btn-primary" type="submit">Registrar</button>
+                    <a href="#">cancelar</a>
+                </div>
             </div>
         </section>
         <!-- tocar esta parte -->
@@ -89,10 +113,10 @@
             <div class="container py-2">
                 <ul class="nav justify-content-center pb-2 mb-4 border-bottom">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="todasPeliculas.html">Peliculas</a>
+                        <a class="nav-link" href="#">Peliculas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Confitería</a>
