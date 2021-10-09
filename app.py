@@ -1,15 +1,26 @@
 from flask import Flask, render_template
+from flask_wtf import FlaskForm, recaptcha
+from flask_wtf.recaptcha.fields import RecaptchaField
+from wtforms import StringField, PasswordField
 
 app = Flask(__name__)
-app.secret_key = 'mysecretkey'
+app.config['SECRET_KEY'] = 'claveoculta'
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lf-rKwcAAAAAIQKSPI2becEW2WRLZcUt80kp4z5'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lf-rKwcAAAAAIkQKHWtgSNhqNkEb2nmW7XkTZIC'
+
+class login_form(FlaskForm):
+    username = StringField('username')
+    password = PasswordField("password")
+    recaptcha = RecaptchaField()
 
 @app.route('/')
 def index():
     return render_template('index.html', page='inicio')
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html', page='login')
+    form = login_form()
+    return render_template('login.html', form=form, recaptcha=recaptcha, page='login')
 
 @app.route('/registrar')
 def registrar():
@@ -30,3 +41,6 @@ def perfil_usuario():
 @app.route('/peliculas/')
 def todas_peliculas():
     return render_template('todasPeliculas.html', page='peliculas')
+
+if __name__ == '__main__':
+    app.run(debug=True)

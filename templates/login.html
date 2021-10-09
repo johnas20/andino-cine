@@ -9,20 +9,21 @@
             sesión</h3>
         <!-- Estructura HTML -->
         <main class="form-signin">
-            <form>
+            <form action="{{ url_for('login')}}" method="POST">
                 <div class="form-floating">
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1"
-                            placeholder="Ingresa tu correo">
+                        {{form.username.label(class_='form-label')}}
+                        {{form.username(class_='form-control')}}
                     </div>
                 </div>
                 <div class="form-floating">
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="exampleFormControlInput1"
-                            placeholder="Ingresa tu contraseña">
+                        {{form.password.label(class_='form-label')}}
+                        {{form.password(class_='form-control')}}
                     </div>
+                </div>
+                <div class="mb-3">
+                    {{form.recaptcha}}
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
                 <div class="text-end mt-2">
