@@ -1,0 +1,178 @@
+{% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="my-4">
+    <div class="container">
+        <h3><a href="#"></a><span class="d-inline-block mx-2"></span>Dashboard Administrativo</h3>
+    </div>
+
+    <div class="container">
+
+        <figure class="figure">
+            <img src="{{url_for('static',filename='img/avatar.png')}}" class="figure-img img-fluid rounded" alt="..."
+                width="150" height="150">
+            <figcaption class="figure-caption text-end">Cambiar Imagen de Perfil</figcaption>
+        </figure>
+
+        <h4> Administrar Peliculas </h4>
+
+        <form class="row">
+            <div class="col-md-4">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" aria-label="form-select-sm example">
+                    <option selected>Todas las categorías</option>
+                    <option value="1">Terror</option>
+                    <option value="2">Acción</option>
+                    <option value="3">Ficción</option>
+                    <option value="4">Caricatura</option>
+                    <option value="5">Drama</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-danger">Buscar</button>
+                <button type="button" class="btn btn-warning"><i class="bi bi-plus-circle"></i>Agregar</button>
+            </div>
+
+
+
+        </form>
+
+        <h4> Resultados </h4>
+
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Género</th>
+                    <th scope="col">En Cartelera</th>
+                    <th scope="col">Acciones</th>
+                    <th scope="col">Comentarios</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>The Avengers</td>
+                    <td>Acción</td>
+                    <td>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                        </div>
+
+                    </td>
+                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+                    <td><a href="#">Ver</a></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>The Avengers</td>
+                    <td>Acción</td>
+                    <td>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                        </div>
+
+                    </td>
+                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+                    <td><a href="#">Ver</a></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>The Avengers</td>
+                    <td>Acción</td>
+                    <td>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                        </div>
+
+                    </td>
+                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+                    <td><a href="#">Ver</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    <div class="container">
+
+
+
+        <h4> Administrar Usuarios</h4>
+
+        <form class="row">
+            <div class="col-md-4">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-danger">Buscar</button>
+            </div>
+
+        </form>
+
+        <h4> Resultados </h4>
+
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Juan Carlos</td>
+                    <td>juancarlos@gmail.com</td>
+                    <td>Administrador</td>
+                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Juan Carlos</td>
+                    <td>juancarlos@gmail.com</td>
+                    <td>Administrador</td>
+                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Juan Carlos</td>
+                    <td>juancarlos@gmail.com</td>
+                    <td>Administrador</td>
+                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+
+
+</section>
+{% endblock %}

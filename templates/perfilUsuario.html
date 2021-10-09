@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block title %}perfil de usuario{% endblock %}
+{% block content %}
+<section class="my-4">
+    <div class="container">
+        <h2>Perfil del usuario</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{url_for('static',filename='img/user.png')}}" alt="40%" width="40%">
+                <h3>Hola Juan Carlos</h3>
+                <h2>Usuario</h2>
+            </div>
+        </div>
+</section>
+
+<section class="my-4">
+    <div class="container">
+        <h2>Datos personales</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Nombres</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Juan Carlos">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Apellidos</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Moreno Aguilar">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1"
+                        placeholder="juan.aguilar@uninorte.com">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Celular</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="301 345 67 87">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Cambiar contraseña</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Validar contraseña</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="my-4">
+    <div class="container">
+        <div class="table-responsive">
+
+        </div>
+        <h2>Tus tickets</h2>
+        <table class="table table-dark table-sm">
+            <tbody>
+                <tr>
+                    <td scope="row"><img src="img/ticket.png" alt="8%" width="8%"></td>
+                    <td>Nombre de la película</td>
+                    <td>Horario</td>
+                    <td>Lugar</td>
+                </tr>
+                <tr>
+
+                    <td scope="row"><img src="img/ticket.png" alt="8%" width="8%"></td>
+                    <td>Nombre de la película</td>
+                    <td>Horario</td>
+                    <td>Lugar</td>
+                </tr>
+                <tr>
+                    <td scope="row"><img src="img/ticket.png" alt="8%" width="8%"></td>
+                    <td>Nombre de la película</td>
+                    <td>Horario</td>
+                    <td>Lugar</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

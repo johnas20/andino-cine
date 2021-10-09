@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+{% block title %}detalle de la función{% endblock %}
+{% block content %}
+<!-- Tocar esta parte -->
+<section class="my-5">
+    <div class="container">
+        <h3><a href="javascript:history.back()"><i class="bi bi-arrow-left"></i></a><span
+                class="d-inline-block mx-2"></span>Detalle de
+            la función</h3>
+        <!-- Estructura HTML -->
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="mt-4">Horarios y teatros</h4>
+                <p>Seleccione un teatro y fecha para conocer los horarios disponibles</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="teatro" class="form-label">Teatro</label>
+                        <select class="form-select" aria-label="Seleccione el teatro">
+                            <option selected>Seleccione el teatro</option>
+                            <option value="1">Mayorca</option>
+                            <option value="2">Viva Envigado</option>
+                            <option value="3">Cine Colombia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="email" class="form-control" placeholder="DD/MM/AAAA" id="fecha">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cantBoleta" class="form-label">Cantidad de boletas</label>
+                        <input type="number" class="form-control" placeholder="1" id="cantBoleta">
+                    </div>
+                </div>
+                <h4 class="mt-5">Seleccione la hora</h4>
+
+                <div class="row  align-items-center border-bottom py-2">
+                    <div class="col-1">
+                        <h5 class="h2">2D</h5>
+                    </div>
+                    <div class="col">
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">10:00
+                            a.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">01:00
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-primary text-light rounded-pill h6 m-1 d-inline-block">03:00
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">06:00
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">09:30
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">11:30
+                            p.m.</span>
+                    </div>
+                </div>
+                <div class="row  align-items-center border-bottom py-2">
+                    <div class="col-1">
+                        <h5 class="h2">3D</h5>
+                    </div>
+                    <div class="col">
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">10:00
+                            a.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">01:00
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">03:00
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">06:00
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">09:30
+                            p.m.</span>
+                        <span
+                            class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">11:30
+                            p.m.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4 class="mt-5">Detalles de la compra</h4>
+                <div class="mt-4 bg-dark text-light border-0 d-flex">
+                    <img src="{{url_for('static',filename='img/caratula-1.png')}}" class="w-50 h-auto" class="mr-2">
+                    <div class="ms-3">
+                        <p class="h5 m-0">the advengers</p>
+                        <p class="m-0 h3">2D</p>
+                        <p class="m-0">03:00 p.m.</p>
+                        <p>Boleta por persona: <strong>$15.000</strong></p>
+                        <p class="h3"><strong>Total $113.000</strong></p>
+                        <button class="btn btn-primary btn-lg">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- tocar esta parte -->
+{% endblock %}
