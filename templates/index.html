@@ -41,9 +41,11 @@
     <div class="container">
         <h2>En cartelera</h2>
         <div class="row">
+            {% for key, pelicula in peliculas.items() %}
+            {% if pelicula.reserva == True%}
             <div class="col-md-3">
                 <div class="card bg-dark text-light border-0">
-                    <img src="{{url_for('static',filename='img/caratula-1.png')}}" class="card-img-top" alt="...">
+                    <img src="{{url_for('static',filename='img/')}}{{pelicula.image}}" class="card-img-top" alt="...">
                     <div class="ranquing p-4 text-light">
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
@@ -52,55 +54,12 @@
                         <i class="bi bi-star"></i>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">the advengers</h5>
+                        <h5 class="card-title">{{pelicula.nombre}}</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-dark text-light border-0">
-                    <img src="{{url_for('static',filename='img/caratula-1.png')}}" class="card-img-top" alt="...">
-                    <div class="ranquing p-4 text-light">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">the advengers</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-dark text-light border-0">
-                    <img src="{{url_for('static',filename='img/caratula-1.png')}}" class="card-img-top" alt="...">
-                    <div class="ranquing p-4 text-light">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">the advengers</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-dark text-light border-0">
-                    <img src="{{url_for('static',filename='img/caratula-1.png')}}" class="card-img-top" alt="...">
-                    <div class="ranquing p-4 text-light">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">the advengers</h5>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
+            {% endfor %}
         </div>
         <div class="text-center my-4">
             <a href="{{url_for('todas_peliculas')}}" class="btn btn-primary btn-lg">Ver todas las peliculas</a>

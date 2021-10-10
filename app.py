@@ -2,25 +2,39 @@ from flask import Flask, render_template
 from flask_wtf import FlaskForm, recaptcha
 from flask_wtf.recaptcha.fields import RecaptchaField
 from wtforms import StringField, PasswordField
+from wtforms import validators
+from wtforms.validators import InputRequired, DataRequired, Length, AnyOf;
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'claveoculta'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lf-rKwcAAAAAIQKSPI2becEW2WRLZcUt80kp4z5'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lf-rKwcAAAAAIkQKHWtgSNhqNkEb2nmW7XkTZIC'
 
+peliculas = {
+    1:{'nombre': 'Los avengers 1', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
+    2:{'nombre': 'Los avengers 2', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
+    3:{'nombre': 'Los avengers 3', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
+    4:{'nombre': 'Los avengers 4', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
+    5:{'nombre': 'Los avengers 5', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
+    6:{'nombre': 'Los avengers 6', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'}
+}
+
 class login_form(FlaskForm):
-    username = StringField('username')
-    password = PasswordField("password")
+    username = StringField('username', validators=[InputRequired(message='El usuario es requerido'),Length(min=5,max=10, message='El usuario debe tener entre 5 y 10 caracteres')])
+    password = PasswordField("password", validators=[InputRequired(message='Contraseña es requerida'), AnyOf(values=['admin','12345'])])
     recaptcha = RecaptchaField()
 
 @app.route('/')
 def index():
-    return render_template('index.html', page='inicio')
+    return render_template('index.html', page='inicio',  peliculas = peliculas)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = login_form()
+    if form.validate_on_submit():
+        print("Usuario: {} Contraseña: {}".format(form.username.data,form.password.data))
     return render_template('login.html', form=form, recaptcha=recaptcha, page='login')
+    
 
 @app.route('/registrar')
 def registrar():

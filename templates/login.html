@@ -9,17 +9,24 @@
             sesión</h3>
         <!-- Estructura HTML -->
         <main class="form-signin">
-            <form action="{{ url_for('login')}}" method="POST">
+            <form action="{{ url_for('login')}}" method="POST" novalidate>
                 <div class="form-floating">
                     <div class="mb-3">
+                        {{form.csrf_token}}
                         {{form.username.label(class_='form-label')}}
                         {{form.username(class_='form-control')}}
+                        {%for error in form.username.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
                     </div>
                 </div>
                 <div class="form-floating">
                     <div class="mb-3">
                         {{form.password.label(class_='form-label')}}
                         {{form.password(class_='form-control')}}
+                        {%for error in form.password.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
                     </div>
                 </div>
                 <div class="mb-3">
