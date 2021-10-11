@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm, recaptcha
 from flask_wtf.recaptcha.fields import RecaptchaField
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, SelectField
 from wtforms import validators
 from wtforms.validators import InputRequired, DataRequired, Length, AnyOf;
 
@@ -11,9 +11,9 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lf-rKwcAAAAAIQKSPI2becEW2WRLZcUt80kp4z5'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lf-rKwcAAAAAIkQKHWtgSNhqNkEb2nmW7XkTZIC'
 
 peliculas = {
-    1:{'nombre': 'Los avengers 1', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
+    1:{'nombre': 'Venon 2', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-venon.jpg'},
     2:{'nombre': 'Los avengers 2', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
-    3:{'nombre': 'Los avengers 3', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
+    3:{'nombre': 'Los avengers 3', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
     4:{'nombre': 'Los avengers 4', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
     5:{'nombre': 'Los avengers 5', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
     6:{'nombre': 'Los avengers 6', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'}
