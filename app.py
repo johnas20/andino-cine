@@ -24,7 +24,14 @@ class login_form(FlaskForm):
     password = PasswordField("password", validators=[InputRequired(message='Contraseña es requerida'), AnyOf(values=['admin','12345'])])
     recaptcha = RecaptchaField()
 
-@app.route('/')
+
+#Ejemplo de dos usuarios para los layouts de perfilUsuario y dashboard del admin
+usuarios = {
+    1:{'Id': 1, 'Nombre': 'usuario1', 'Correo': 'usuario1@gmailcom', 'Rol': 'usuario' },
+    2:{'Id': 2, 'Nombre': 'admin1', 'Correo': 'admin1@gmailcom', 'Rol': 'administrador' }
+}
+
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html', page='inicio',  peliculas = peliculas)
 
@@ -36,23 +43,23 @@ def login():
     return render_template('login.html', form=form, recaptcha=recaptcha, page='login')
     
 
-@app.route('/registrar')
+@app.route('/registrar', methods=['GET','POST'])
 def registrar():
     return render_template('registrar.html', page='registrar')
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
     return render_template('dashboard.html', page='dashboard')
 
-@app.route('/detalleDeFuncion/')
+@app.route('/detalleDeFuncion/', methods=['GET','POST'])
 def detalle_de_funcion():
     return render_template('detalleDeLaFuncion.html', page='detaleFuncion')
 
-@app.route('/perfilUsuario/')
+@app.route('/perfilUsuario/', methods=['GET','POST'])
 def perfil_usuario():
     return render_template('perfilUsuario.html', page='perfilUsuario')
 
-@app.route('/peliculas/')
+@app.route('/peliculas/', methods=['GET'])
 def todas_peliculas():
     return render_template('todasPeliculas.html', page='peliculas')
 
