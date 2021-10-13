@@ -87,9 +87,9 @@
             <div class="col-md-4">
                 <h4 class="mt-5">Detalles de la compra</h4>
                 <div class="mt-4 bg-dark text-light border-0 d-flex">
-                    <img src="{{url_for('static',filename='img/caratula-1.png')}}" class="w-50 h-auto" class="mr-2">
+                    <img src="{{url_for('static',filename='img/')}}{{pos.image}}" class="w-50 h-auto" class="mr-2">
                     <div class="ms-3">
-                        <p class="h5 m-0">the advengers</p>
+                        <p class="h5 m-0">{{pos.nombre}}</p>
                         <p class="m-0 h3">2D</p>
                         <p class="m-0">03:00 p.m.</p>
                         <p>Boleta por persona: <strong>$15.000</strong></p>

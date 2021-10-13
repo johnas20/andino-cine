@@ -1,34 +1,37 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_wtf import FlaskForm, recaptcha
 from flask_wtf.recaptcha.fields import RecaptchaField
 from wtforms import StringField, PasswordField, SelectField
 from wtforms import validators
 from wtforms.validators import InputRequired, DataRequired, Length, AnyOf;
+from flask.helpers import url_for
+from werkzeug.utils import redirect
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'claveoculta'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lf-rKwcAAAAAIQKSPI2becEW2WRLZcUt80kp4z5'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lf-rKwcAAAAAIkQKHWtgSNhqNkEb2nmW7XkTZIC'
 
-peliculas = {
-    1:{'nombre': 'Venon 2', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-venon.jpg'},
-    2:{'nombre': 'Los avengers 2', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
-    3:{'nombre': 'Los avengers 3', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
-    4:{'nombre': 'Los avengers 4', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':False,'image':'caratula-1.png'},
-    5:{'nombre': 'Los avengers 5', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'},
-    6:{'nombre': 'Los avengers 6', 'calificacion':5,'sinopsis':'lorem ipsum its a dolor it...','reserva':True,'image':'caratula-1.png'}
-}
+from peliculas import peliculas
 
 class login_form(FlaskForm):
-    username = StringField('username', validators=[InputRequired(message='El usuario es requerido'),Length(min=5,max=10, message='El usuario debe tener entre 5 y 10 caracteres')])
-    password = PasswordField("password", validators=[InputRequired(message='Contraseña es requerida'), AnyOf(values=['admin','12345'])])
+    username = StringField('Usuario o correo', validators=[InputRequired(message='El usuario es requerido'),Length(min=5,max=10, message='El usuario debe tener entre 5 y 10 caracteres')])
+    password = PasswordField("Contraseña", validators=[InputRequired(message='Contraseña es requerida'), AnyOf(values=['admin','12345'])])
     recaptcha = RecaptchaField()
+
+class register_form(FlaskForm):
+    Nusername = StringField('Nombre', validators=[InputRequired(message='El mombre es requerido'),Length(min=5,max=10, message='El nombre debe tener entre 5 y 10 caracteres')])
+    Nlast = StringField('Apellido')
+    Nemail = StringField('Nombre', validators=[InputRequired(message='El correo es requerido')])
+    Nphone = StringField('Teléfono', validators=[InputRequired(message='El teléfono es requerido')])
+    Npassword = PasswordField("Contraseña", validators=[InputRequired(message='La contraseña es requerida')])
+    NRpassword = PasswordField("Repite la contraseña", validators=[InputRequired(message='La contraseña es requerida')])
 
 
 #Ejemplo de dos usuarios para los layouts de perfilUsuario y dashboard del admin
 usuarios = {
-    1:{'Id': 1, 'Nombre': 'usuario1', 'Correo': 'usuario1@gmailcom', 'Rol': 'usuario' },
-    2:{'Id': 2, 'Nombre': 'admin1', 'Correo': 'admin1@gmailcom', 'Rol': 'administrador' }
+    1:{'Nombre': 'usuario1', 'Correo': 'usuario1@gmailcom', 'Rol': 'usuario' },
+    2:{'Nombre': 'admin1', 'Correo': 'admin1@gmailcom', 'Rol': 'administrador'}
 }
 
 @app.route('/', methods=['GET'])
@@ -45,26 +48,42 @@ def login():
 
 @app.route('/registrar', methods=['GET','POST'])
 def registrar():
-    return render_template('registrar.html', page='registrar')
+    register = register_form()
+    return render_template('registrar.html', page='registrar', form = register)
 
-@app.route('/dashboard', methods=['GET','POST'])
+@app.route('/dashboard/', methods=['GET','POST'])
 def dashboard():
-    return render_template('dashboard.html', page='dashboard')
+    return render_template('dashboard.html', page='dashboard', user = usuarios, pelis = peliculas)
 
-@app.route('/detalleDeFuncion/', methods=['GET','POST'])
-def detalle_de_funcion():
-    return render_template('detalleDeLaFuncion.html', page='detaleFuncion')
+@app.route('/detalleDeLaFuncion/<id>', methods=['GET','POST'])
+def detalle_de_funcion(id):
+    id_peli = int(id)
+    if id_peli in peliculas:
+        return render_template('detalleDeLaFuncion.html', page='detalleFuncion', pos = peliculas[id_peli])
+    else:
+        return "la noticia que esta buscando no existe"
+    
+@app.route('/detalleDePelicula/<id>', methods=['GET'])
+def detalle_pelicula(id):
+    id_peli = int(id)
+    if id_peli in peliculas:
+        return render_template('detalleDePelicula.html', page='detallePelicula', pos = peliculas[id_peli], ident = id_peli)
+    else:
+        return "la noticia que esta buscando no existe"
+    
 
-@app.route('/perfilUsuario/', methods=['GET','POST'])
-def perfil_usuario():
-    return render_template('perfilUsuario.html', page='perfilUsuario')
+@app.route('/perfilUsuario/<nom_usuario>', methods=['GET'])
+def perfil_usuario(nom_usuario):
+    return render_template('perfilUsuario.html', page='perfilUsuario', name = nom_usuario)
+
+@app.route('/perfilUsuario/', methods=['GET'])
+def perfil_user():
+    return render_template('perfilUsuario.html', page='perfilUsuario', name = "invitado")
 
 @app.route('/peliculas/', methods=['GET'])
 def todas_peliculas():
-    return render_template('todasPeliculas.html', page='peliculas')
+    return render_template('todasPeliculas.html', page='peliculas', peliculas = peliculas)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-#Prueba
 

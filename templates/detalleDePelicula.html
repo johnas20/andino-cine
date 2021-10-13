@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title %}perfil de usuario{% endblock %}
+{% block content %}
+<section class="my-4">
+    <div class="container">
+        <h2><a href="javascript:history.back()"><i class="bi bi-arrow-left"></i></a><span
+                class="d-inline-block mx-2"></span>Detalle de la pelicula</h2>
+        <div class="row my-4">
+            <div class="col-md-3">
+                <img src="{{url_for('static',filename='img/')}}{{pos.image}}" alt="40%" class="img-fluid">
+            </div>
+            <div class="col-md-9">
+                <h3>{{pos.nombre}}</h3>
+                <div class="text-light">
+                    {% for count in range(pos.calificacion) %}
+                    <i class="bi bi-star-fill"></i>
+                    {% endfor %}
+                    {% for count in range(pos.calificacion,5) %}
+                    <i class="bi bi-star"></i>
+                    {% endfor %}
+                </div>
+                <p>{{pos.sinopsis}}</p>
+                <a href="/detalleDeLaFuncion/{{ident}}" class="btn btn-primary btn-big">Comprar boleto</a>
+            </div>
+        </div>
+</section>
+
+{% endblock %}

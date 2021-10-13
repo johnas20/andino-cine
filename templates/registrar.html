@@ -10,41 +10,62 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="nombresRegistros" class="form-label">Nombres</label>
-                    <input type="text" class="form-control" id="nombresRegistros" placeholder="Ingresa tu nombre">
+                    {{form.csrf_token}}
+                    {{form.Nusername.label(class_='form-label')}}
+                    {{form.Nusername(class_='form-control')}}
+                    {%for error in form.Nusername.errors %}
+                    <span style="color: red">{{error}}</span>
+                    {%endfor %}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="apellidosRegistros" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" id="apellidosRegistros" placeholder="Ingresa tu apellido">
+                    {{form.csrf_token}}
+                    {{form.Nlast.label(class_='form-label')}}
+                    {{form.Nlast(class_='form-control')}}
+                    {%for error in form.Nlast.errors %}
+                    <span style="color: red">{{error}}</span>
+                    {%endfor %}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="emailRegistros" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="emailRegistros" placeholder="Ingresa tu email">
+                    {{form.csrf_token}}
+                    {{form.Nemail.label(class_='form-label')}}
+                    {{form.Nemail(class_='form-control')}}
+                    {%for error in form.Nemail.errors %}
+                    <span style="color: red">{{error}}</span>
+                    {%endfor %}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="numberRegistros" class="form-label">Numero de Celular</label>
-                    <input type="number" class="form-control" id="numberRegistros"
-                        placeholder="Ingresa tu numero de celular">
+                    {{form.csrf_token}}
+                    {{form.Nphone.label(class_='form-label')}}
+                    {{form.Nphone(class_='form-control')}}
+                    {%for error in form.Nphone.errors %}
+                    <span style="color: red">{{error}}</span>
+                    {%endfor %}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="contrasenaRegistros" class="form-label">Crear contrasena</label>
-                    <input type="password" class="form-control" id="contrasenaRegistros"
-                        placeholder="Ingresa tu contrasena">
+                    {{form.csrf_token}}
+                    {{form.Npassword.label(class_='form-label')}}
+                    {{form.Npassword(class_='form-control')}}
+                    {%for error in form.Npassword.errors %}
+                    <span style="color: red">{{error}}</span>
+                    {%endfor %}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="contrasenabRegistros" class="form-label">Validar contrasena</label>
-                    <input type="password" class="form-control" id="contrasenabRegistros"
-                        placeholder="Valida tu contrasena">
+                    {{form.csrf_token}}
+                    {{form.NRpassword.label(class_='form-label')}}
+                    {{form.NRpassword(class_='form-control')}}
+                    {%for error in form.NRpassword.errors %}
+                    <span style="color: red">{{error}}</span>
+                    {%endfor %}
                 </div>
             </div>
         </div>
