@@ -7,39 +7,38 @@
         <form action="{{url_for('agregar_peliculas')}}" method="post">
             <div class="row">
                 <div class="col-md-4">
-                    <label for="nombre" class="form-label">Nombre de la pelicula</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control">
+                    {{form.csrf_token}}
+                    {{form.nombre.label(class_='form-label')}}
+                    {{form.nombre(class_='form-control')}}
                 </div>
                 <div class="col-md-4">
-                    <label for="categoria" class="form-label">Categoría</label>
-                    <select class="form-select form-select-sm" name="categoria" id="categoria" class="form-control">
-                        <option selected>Todas las categorías</option>
-                        <option value="1">Terror</option>
-                        <option value="2">Acción</option>
-                        <option value="3">Ficción</option>
-                        <option value="4">Caricatura</option>
-                        <option value="5">Drama</option>
-                    </select>
+                    {{form.csrf_token}}
+                    {{form.categoria.label(class_='form-label')}}
+                    {{form.categoria(class_='form-control')}}
                 </div>
                 <div class="col-md-4">
-                    <label for="valor" class="form-label">Calificación (de 1 a 5) estrellas</label>
-                    <input type="number" id="valor" name="valor" class="form-control">
+                    {{form.csrf_token}}
+                    {{form.valor.label(class_='form-label')}}
+                    {{form.valor(class_='form-control')}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <label for="sinopsis" class="form-label">Sinopsis</label>
-                    <textarea name="sinopsis" id="sinopsis" cols="30" rows="10" class="w-100"></textarea>
+                    {{form.csrf_token}}
+                    {{form.sinopsis.label(class_='form-label')}}
+                    {{form.sinopsis(class_='form-control')}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
-                    <label for="cartelera" class="form-label">cartelera (True o False)</label>
-                    <input type="text" id="cartelera" name="cartelera" class="form-control">
+                    {{form.csrf_token}}
+                    {{form.cartelera.label(class_='form-label')}}
+                    {{form.cartelera(class_='form-control')}}
                 </div>
                 <div class="col-md-4">
-                    <label for="image" class="form-label">nombre de la imagen (debe estar en static/img/)</label>
-                    <input type="text" id="image" name="image" class="form-control">
+                    {{form.csrf_token}}
+                    {{form.image.label(class_='form-label')}}
+                    {{form.image(class_='form-control')}}
                 </div>
             </div>
             <input type="submit" value="Agregar pelicula" class="btn btn-primary mt-4">

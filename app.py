@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect
 from flask_wtf import FlaskForm, recaptcha
 from flask_wtf.recaptcha.fields import RecaptchaField
-from wtforms import StringField, PasswordField, SelectField
+from wtforms import StringField, PasswordField, SelectField, TextAreaField
 from wtforms import validators
+from wtforms.fields.core import BooleanField
 from wtforms.validators import InputRequired, DataRequired, Length, AnyOf;
 from flask.helpers import url_for
 
@@ -25,6 +26,14 @@ class register_form(FlaskForm):
     Nphone = StringField('Teléfono', validators=[InputRequired(message='El teléfono es requerido')])
     Npassword = PasswordField("Contraseña", validators=[InputRequired(message='La contraseña es requerida')])
     NRpassword = PasswordField("Repite la contraseña", validators=[InputRequired(message='La contraseña es requerida')])
+
+class add_pelicula(FlaskForm):
+    nombre = StringField('nombre de la pelicula')
+    categoria = StringField('categoria')
+    valor = StringField('Calificación (de 1 a 5) estrellas')
+    sinopsis = StringField('sinopsis')
+    cartelera = StringField('En cartelera (1:Si o 0:no)')
+    image = StringField('nombre de la imagen (debe estar en static/img/)')
 
 
 #Ejemplo de dos usuarios para los layouts de perfilUsuario y dashboard del admin
@@ -82,6 +91,16 @@ def perfil_user():
 @app.route('/peliculas/', methods=['GET'])
 def todas_peliculas():
     return render_template('todasPeliculas.html', page='peliculas', peliculas = peliculas)
+
+@app.route('/agregarPelicula/', methods=['POST','GET'])
+def agregar_peliculas():
+    addPelis = add_pelicula()
+    if addPelis.validate_on_submit():
+        cod = len(peliculas)
+        peliculas[cod] = {'nombre': addPelis.nombre.data, 'categoria':addPelis.categoria.data, 'calificacion':int(addPelis.valor.data),'sinopsis':addPelis.sinopsis.data,'cartelera':bool(addPelis.cartelera.data),'image':addPelis.image.data}
+        print(peliculas)
+        return redirect('/dashboard')
+    return render_template('agregarPelicula.html', form = addPelis)
 
 if __name__ == '__main__':
     app.run(debug=True)
