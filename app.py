@@ -5,7 +5,6 @@ from wtforms import StringField, PasswordField, SelectField
 from wtforms import validators
 from wtforms.validators import InputRequired, DataRequired, Length, AnyOf;
 from flask.helpers import url_for
-from werkzeug.utils import redirect
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'claveoculta'

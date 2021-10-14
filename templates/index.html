@@ -49,11 +49,12 @@
                         <img src="{{url_for('static',filename='img/')}}{{pelicula.image}}" class="card-img-top"
                             alt="...">
                         <div class="ranquing p-4 text-light">
+                            {% for count in range(pelicula.calificacion) %}
                             <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                            {% endfor %}
+                            {% for count in range(pelicula.calificacion,5) %}
                             <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
+                            {% endfor %}
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{pelicula.nombre}}</h5>
