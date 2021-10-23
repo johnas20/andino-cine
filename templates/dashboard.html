@@ -44,21 +44,17 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Género</th>
                     <th scope="col">En Cartelera</th>
                     <th scope="col">Acciones</th>
                     <th scope="col">Comentarios</th>
                 </tr>
             </thead>
             <tbody>
-                {% for key, pelicula in pelis.items() %}
+                {% for pelicula in pelis %}
                 <tr>
-                    <th scope="row">{{key}}</th>
-                    <td>{{pelicula.nombre}}</td>
-                    <td>{{pelicula.categoria}}</td>
-                    <td>
-                        {{pelicula.cartelera}}
-                    </td>
+                    <th scope="row">{{pelicula[0]}}</th>
+                    <td>{{pelicula[1]}}</td>
+                    <td>{{pelicula[2]}}</td>
                     <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
                     <td><a href="#">Ver</a></td>
 
@@ -93,12 +89,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for key, usuarios in user.items() %}
+                {% for usuarios in user %}
                 <tr>
-                    <th scope="row">{{key}}</th>
-                    <td>{{usuarios.Nombre}}</td>
-                    <td>{{usuarios.Correo}}</td>
-                    <td>{{usuarios.Rol}}</td>
+                    <th scope="row">{{usuarios[0]}}</th>
+                    <td>{{usuarios[1]}}</td>
+                    <td>{{usuarios[3]}}</td>
+                    <td>{{usuarios[5]}}</td>
                     <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
                 </tr>
                 {% endfor %}

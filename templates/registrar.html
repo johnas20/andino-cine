@@ -7,77 +7,67 @@
                 class="d-inline-block mx-2"></span>Pagina de
             registro</h3>
         <!-- Estructura HTML -->
-        <div class="row">
-            <div class="col-md-4">
-                <div class="mb-3">
-                    {{form.csrf_token}}
-                    {{form.Nusername.label(class_='form-label')}}
-                    {{form.Nusername(class_='form-control')}}
-                    {%for error in form.Nusername.errors %}
-                    <span style="color: red">{{error}}</span>
-                    {%endfor %}
+        
+        <form action="{{ url_for('registrar')}}" method="POST" novalidate>   
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{form.csrf_token}}
+                        {{form.Nusername.label(class_='form-label')}}
+                        {{form.Nusername(class_='form-control')}}
+                        {%for error in form.Nusername.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
+                    </div>
+                </div>
+            
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{form.csrf_token}}
+                        {{form.Nemail.label(class_='form-label')}}
+                        {{form.Nemail(class_='form-control')}}
+                        {%for error in form.Nemail.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
+                    </div>
+                </div>
+              
+              
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+                        {{form.csrf_token}}
+                        {{form.Npassword.label(class_='form-label')}}
+                        {{form.Npassword(class_='form-control')}}
+                        {%for error in form.Npassword.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{form.csrf_token}}
+                        {{form.NRpassword.label(class_='form-label')}}
+                        {{form.NRpassword(class_='form-control')}}
+                        {%for error in form.NRpassword.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    {{form.csrf_token}}
-                    {{form.Nlast.label(class_='form-label')}}
-                    {{form.Nlast(class_='form-control')}}
-                    {%for error in form.Nlast.errors %}
-                    <span style="color: red">{{error}}</span>
-                    {%endfor %}
-                </div>
+            <div class="d-inline-flex bg-secondary p-3 mt-3">
+                <i class="bi bi-card-image"></i>
+                <span class="px-3">Agregar la foto de tu avatar</span>
+                <button class="btn btn-sm btn-primary" type="submit">Subir Imagen</button>
             </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    {{form.csrf_token}}
-                    {{form.Nemail.label(class_='form-label')}}
-                    {{form.Nemail(class_='form-control')}}
-                    {%for error in form.Nemail.errors %}
-                    <span style="color: red">{{error}}</span>
-                    {%endfor %}
-                </div>
+            <div class="mt-4">
+                <button class="btn btn-lg btn-primary" type="submit">Registrar</button>
+                <a href="#">cancelar</a>
             </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    {{form.csrf_token}}
-                    {{form.Nphone.label(class_='form-label')}}
-                    {{form.Nphone(class_='form-control')}}
-                    {%for error in form.Nphone.errors %}
-                    <span style="color: red">{{error}}</span>
-                    {%endfor %}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    {{form.csrf_token}}
-                    {{form.Npassword.label(class_='form-label')}}
-                    {{form.Npassword(class_='form-control')}}
-                    {%for error in form.Npassword.errors %}
-                    <span style="color: red">{{error}}</span>
-                    {%endfor %}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    {{form.csrf_token}}
-                    {{form.NRpassword.label(class_='form-label')}}
-                    {{form.NRpassword(class_='form-control')}}
-                    {%for error in form.NRpassword.errors %}
-                    <span style="color: red">{{error}}</span>
-                    {%endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="d-inline-flex bg-secondary p-3 mt-3">
-            <i class="bi bi-card-image"></i>
-            <span class="px-3">Agregar la foto de tu avatar</span>
-            <button class="btn btn-sm btn-primary" type="submit">Subir Imagen</button>
-        </div>
-        <div class="mt-4">
-            <button class="btn btn-lg btn-primary" type="submit">Registrar</button>
-            <a href="#">cancelar</a>
-        </div>
+        </form>
+            
     </div>
 </section>
 {% endblock %}

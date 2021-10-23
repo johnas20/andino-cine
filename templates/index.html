@@ -41,23 +41,16 @@
     <div class="container">
         <h2>En cartelera</h2>
         <div class="row">
-            {% for key, pelicula in peliculas.items() %}
-            {% if pelicula.cartelera == True%}
+            {% for peliculas in pelis %}
+            {% if peliculas[3] == 1 %}
             <div class="col-md-3">
-                <a href="/detalleDePelicula/{{key}}" class="text-decoration-none">
+                <a href="/detalleDePelicula/{{peliculas[0]}}" class="text-decoration-none">
                     <div class="card bg-dark text-light border-0">
-                        <img src="{{url_for('static',filename='img/')}}{{pelicula.image}}" class="card-img-top"
+                        <img src="{{url_for('static',filename='img/')}}{{peliculas[4]}}" class="card-img-top"
                             alt="...">
-                        <div class="ranquing p-4 text-light">
-                            {% for count in range(pelicula.calificacion) %}
-                            <i class="bi bi-star-fill"></i>
-                            {% endfor %}
-                            {% for count in range(pelicula.calificacion,5) %}
-                            <i class="bi bi-star"></i>
-                            {% endfor %}
-                        </div>
+                     
                         <div class="card-body">
-                            <h5 class="card-title">{{pelicula.nombre}}</h5>
+                            <h5 class="card-title">{{peliculas[1]}}</h5>
                         </div>
                     </div>
                 </a>
