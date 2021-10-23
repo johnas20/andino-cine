@@ -7,20 +7,13 @@
                 class="d-inline-block mx-2"></span>Detalle de la pelicula</h2>
         <div class="row my-4">
             <div class="col-md-3">
-                <img src="{{url_for('static',filename='img/')}}{{pos.image}}" alt="40%" class="img-fluid">
+                <img src="{{url_for('static',filename='img/')}}{{pelis[4]}}" alt="40%" class="img-fluid">
             </div>
             <div class="col-md-9">
-                <h3>{{pos.nombre}}</h3>
-                <div class="text-light">
-                    {% for count in range(pos.calificacion) %}
-                    <i class="bi bi-star-fill"></i>
-                    {% endfor %}
-                    {% for count in range(pos.calificacion,5) %}
-                    <i class="bi bi-star"></i>
-                    {% endfor %}
-                </div>
-                <p>{{pos.sinopsis}}</p>
-                <a href="/detalleDeLaFuncion/{{ident}}" class="btn btn-primary btn-big">Comprar boleto</a>
+                <h3>{{pelis[1]}}</h3>
+              
+                <p>{{pelis[2]}}</p>
+                <a href="/detalleDeLaFuncion/{{pelis[0]}}" class="btn btn-primary btn-big">Comprar boleto</a>
             </div>
         </div>
 </section>

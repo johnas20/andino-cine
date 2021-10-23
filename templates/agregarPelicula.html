@@ -11,25 +11,7 @@
                     {{form.nombre.label(class_='form-label')}}
                     {{form.nombre(class_='form-control')}}
                 </div>
-                <div class="col-md-4">
-                    {{form.csrf_token}}
-                    {{form.categoria.label(class_='form-label')}}
-                    {{form.categoria(class_='form-control')}}
-                </div>
-                <div class="col-md-4">
-                    {{form.csrf_token}}
-                    {{form.valor.label(class_='form-label')}}
-                    {{form.valor(class_='form-control')}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    {{form.csrf_token}}
-                    {{form.sinopsis.label(class_='form-label')}}
-                    {{form.sinopsis(class_='form-control')}}
-                </div>
-            </div>
-            <div class="row">
+                
                 <div class="col-md-2">
                     {{form.csrf_token}}
                     {{form.cartelera.label(class_='form-label')}}
@@ -40,7 +22,16 @@
                     {{form.image.label(class_='form-label')}}
                     {{form.image(class_='form-control')}}
                 </div>
+
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{form.csrf_token}}
+                    {{form.sinopsis.label(class_='form-label')}}
+                    {{form.sinopsis(class_='form-control')}}
+                </div>
+            </div>
+            
             <input type="submit" value="Agregar pelicula" class="btn btn-primary mt-4">
         </form>
     </div>
