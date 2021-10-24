@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block title %}Agregar Comentario{% endblock %}
+{% block content %}
+<section class="my-4">
+    <div class="container">
+        <h2><a href="javascript:history.back()"><i class="bi bi-arrow-left"></i></a><span
+                class="d-inline-block mx-2"></span>Agregar Comentario</h2>
+        <div class="row my-4">
+            <div class="col-md-3">
+                <img src="{{url_for('static',filename='img/')}}{{pelis[4]}}" alt="40%" class="img-fluid">
+                <br>
+                <br>
+            </div>
+
+            <div class="col-md-9">
+                <h3>{{pelis[1]}}</h3>
+                <p>{{pelis[2]}}</p>
+
+                  
+                <form action="../agregarComentario/{{pelis[0]}}" method="POST", novalidate>
+                    
+                    <div class="mb-3">
+                        {{form.csrf_token}}
+                        {{form.comentario.label(class_='form-label')}}
+                        {{form.comentario(class_='form-control')}}
+                        {%for error in form.comentario.errors %}
+                        <span style="color: red">{{error}}</span>
+                        {%endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                       
+                        <div class="mb-3">
+                            {{form.csrf_token}}
+                            {{form.rating.label(class_='form-label')}}
+                            {{form.rating(class_='form-control')}}
+                            {%for error in form.rating.errors %}
+                            <span style="color: red">{{error}}</span>
+                            {%endfor %}
+                        </div>
+                        
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Registrar</button>
+                </form>
+        
+        
+            </div>
+        </div>
+</section>
+
+{% endblock %}

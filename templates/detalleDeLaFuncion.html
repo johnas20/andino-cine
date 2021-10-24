@@ -10,10 +10,10 @@
         <!-- Estructura HTML -->
         <div class="row">
             <div class="col-md-8">
-                <h4 class="mt-4">Horarios y teatros</h4>
-                <p>Seleccione un teatro y fecha para conocer los horarios disponibles</p>
+                <!-- <h4 class="mt-4">Horarios y teatros</h4> -->
+                <p>Seleccione la fecha, hora y cantidad de boletas</p>
                 <div class="row">
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <label for="teatro" class="form-label">Teatro</label>
                         <select class="form-select" aria-label="Seleccione el teatro">
                             <option selected>Seleccione el teatro</option>
@@ -21,19 +21,26 @@
                             <option value="2">Viva Envigado</option>
                             <option value="3">Cine Colombia</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="col-md-4">
                         <label for="fecha" class="form-label">Fecha</label>
                         <input type="email" class="form-control" placeholder="DD/MM/AAAA" id="fecha">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="hora" class="form-label">Hora</label>
+                        <input type="email" class="form-control" placeholder="HH/MM" id="hora">
                     </div>
                     <div class="col-md-3">
                         <label for="cantBoleta" class="form-label">Cantidad de boletas</label>
                         <input type="number" class="form-control" placeholder="1" id="cantBoleta">
                     </div>
+                    <div class="row-cols-md-4">
+                        <br>
+                        <button class="btn btn-primary btn-lg">Comprar</button>
+                    </div>  
                 </div>
-                <h4 class="mt-5">Seleccione la hora</h4>
-
-                <div class="row  align-items-center border-bottom py-2">
+                
+                <!-- <div class="row  align-items-center border-bottom py-2">
                     <div class="col-1">
                         <h5 class="h2">2D</h5>
                     </div>
@@ -57,8 +64,8 @@
                             class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">11:30
                             p.m.</span>
                     </div>
-                </div>
-                <div class="row  align-items-center border-bottom py-2">
+                </div> -->
+                <!-- <div class="row  align-items-center border-bottom py-2">
                     <div class="col-1">
                         <h5 class="h2">3D</h5>
                     </div>
@@ -82,19 +89,18 @@
                             class="item-horario-cine px-3 py-1 bg-light text-dark rounded-pill h6 m-1 d-inline-block">11:30
                             p.m.</span>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-4">
-                <h4 class="mt-5">Detalles de la compra</h4>
+                <!-- <h4 class="mt-5">Detalles de la compra</h4> -->
                 <div class="mt-4 bg-dark text-light border-0 d-flex">
-                    <img src="{{url_for('static',filename='img/')}}{{pos.image}}" class="w-50 h-auto" class="mr-2">
+                    <img src="{{url_for('static',filename='img/')}}{{pelis[4]}}" class="w-50 h-auto" class="mr-2">
                     <div class="ms-3">
-                        <p class="h5 m-0">{{pos.nombre}}</p>
-                        <p class="m-0 h3">2D</p>
+                        <p class="h2 m-0">{{pelis[1]}}</p>
+                        <!-- <p class="m-0 h3">2D</p>
                         <p class="m-0">03:00 p.m.</p>
                         <p>Boleta por persona: <strong>$15.000</strong></p>
-                        <p class="h3"><strong>Total $113.000</strong></p>
-                        <button class="btn btn-primary btn-lg">Comprar</button>
+                        <p class="h3"><strong>Total $113.000</strong></p> -->
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% block title %}perfil de usuario{% endblock %}
+{% block title %}Detalle de la Pelicula{% endblock %}
 {% block content %}
 <section class="my-4">
     <div class="container">
@@ -8,12 +8,49 @@
         <div class="row my-4">
             <div class="col-md-3">
                 <img src="{{url_for('static',filename='img/')}}{{pelis[4]}}" alt="40%" class="img-fluid">
+                <br>
+                <br>
+                <a href="/detalleDeLaFuncion/{{pelis[0]}}" class="btn btn-primary btn-big">Comprar boleto</a>
             </div>
+
             <div class="col-md-9">
                 <h3>{{pelis[1]}}</h3>
-              
                 <p>{{pelis[2]}}</p>
-                <a href="/detalleDeLaFuncion/{{pelis[0]}}" class="btn btn-primary btn-big">Comprar boleto</a>
+
+                <div class="col-md-4">
+                    <!--  <button type="button" class="btn btn-danger">Buscar</button> -->
+                     <a href="/agregarComentario/{{pelis[0]}}" type="button" class="btn btn-warning"><i
+                             class="bi bi-plus-circle"></i> Agregar Comentario</a>
+                 </div>
+
+                <br>
+                <br>
+                <h4> Comentarios </h4>
+            
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Comentario</th>
+                            <th scope="col">Calificacion</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for comentario in com %}
+                        <tr>
+                            <th scope="row">{{comentario[0]}}</th>
+                            <td>{{comentario[3]}}</td>
+                            <td>{{comentario[4]}}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+        
+        
             </div>
         </div>
 </section>

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
-from flask_wtf import FlaskForm, recaptcha
+from flask.scaffold import _matching_loader_thinks_module_is_package
+from flask_wtf import FlaskForm, form, recaptcha
 from flask_wtf.recaptcha.fields import RecaptchaField
 from wtforms import StringField, PasswordField, SelectField, TextAreaField
 from wtforms import validators
@@ -22,28 +23,25 @@ def sql_connection():
 
 
 class login_form(FlaskForm):
-    username = StringField('Correo', validators=[InputRequired(message='El usuario es requerido'),Length(min=1,max=99, message='El usuario debe tener entre 5 y 10 caracteres')])
+    username = StringField('Correo', validators=[InputRequired(message='El usuario es requerido')])
     password = PasswordField("Contraseña", validators=[InputRequired(message='Contraseña es requerida')])
     recaptcha = RecaptchaField()
 
 class register_form(FlaskForm):
-    Nusername = StringField('Nombre Usuario', validators=[InputRequired(message='El mombre de usuario es requerido'),Length(min=1,max=99, message='El nombre debe tener por lo menos un caracter')])
+    Nusername = StringField('Nombre Usuario', validators=[InputRequired(message='El mombre de usuario es requerido')])
     Nemail = StringField('Correo', validators=[InputRequired(message='El correo es requerido')])
     Npassword = PasswordField("Contraseña", validators=[InputRequired(message='La contraseña es requerida')])
     NRpassword = PasswordField("Repite la contraseña", validators=[InputRequired(message='La contraseña es requerida')])
 
 class add_pelicula(FlaskForm):
-    nombre = StringField('nombre de la pelicula')
-    sinopsis = StringField('sinopsis')
-    cartelera = StringField('En cartelera (1:Si o 0:no)')
-    image = StringField('nombre de la imagen (debe estar en static/img/)')
+    nombre = StringField('Nombre de la Pelicula', validators=[InputRequired(message='Agregue un nombre')])
+    sinopsis = StringField('Sinopsis', validators=[InputRequired(message='Agregue una descripción')])
+    cartelera = StringField('En cartelera | (1: Si | 0: No)', validators=[InputRequired(message='Agregue un valor')])
+    image = StringField('Nombre de la Imagen (debe estar en static/img/)', validators=[InputRequired(message='Agregue la ruta')])
 
-
-#Ejemplo de dos usuarios para los layouts de perfilUsuario y dashboard del admin
-usuarios = {
-    1:{'Nombre': 'usuario1', 'Correo': 'usuario1@gmailcom', 'Rol': 'usuario' },
-    2:{'Nombre': 'admin1', 'Correo': 'admin1@gmailcom', 'Rol': 'administrador'}
-}
+class add_comentario(FlaskForm):
+    comentario = TextAreaField('Comentario', validators=[InputRequired(message='Escriba un comentario')])
+    rating = SelectField('Calificación', choices=[(1,'1'), (2,'2'),(3,'3'), (4,'4'), (5,'5')])
 
 @app.route('/', methods=['GET'])
 def index():
@@ -69,28 +67,19 @@ def login():
         data = cur.fetchall()
         
         try:
-            idusuario = data[0][0]
-            nombre = data[0][1]
-            passw = data [0][2]
-            rol = data[0][5]
 
-            if passw == form.password.data:
-                if rol == 'Usuario':
-                    return redirect('perfilUsuario/'+str(idusuario))
-                if rol == 'Admin':
+            if data [0][2] == form.password.data:
+                if data[0][5] == 'Usuario':
+                    return redirect('perfilUsuario/'+str(data[0][0]))
+                if data[0][5] == 'Admin':
                     return redirect('dashboard')
         
         except:
-
             pass
             
     return render_template('login.html', form=form, recaptcha=recaptcha, page='login')
         
-    
-
-    
-    
-
+ 
 @app.route('/registrar', methods=['GET','POST'])
 def registrar():
     register = register_form()
@@ -102,10 +91,9 @@ def registrar():
         cur.execute(statement, [register.Nusername.data, register.Npassword.data, register.Nemail.data, '1', 'Usuario'])
         con.commit()
 
-        return redirect ('login')
+        return redirect (url_for('login'))
     else:
         return render_template('registrar.html', page='registrar', form = register)
-
 
 
 
@@ -134,14 +122,6 @@ def dashboard():
 
 @app.route('/detalleDeLaFuncion/<id>', methods=['GET','POST'])
 def detalle_de_funcion(id):
-    id_peli = int(id)
-    if id_peli in peliculas:
-        return render_template('detalleDeLaFuncion.html', page='detalleFuncion', pos = peliculas[id_peli])
-    else:
-        return "la noticia que esta buscando no existe"
-    
-@app.route('/detalleDePelicula/<id>', methods=['GET'])
-def detalle_pelicula(id):
 
     conP = sql_connection()
     curP = conP.cursor()
@@ -150,10 +130,34 @@ def detalle_pelicula(id):
     dataP = curP.fetchall()
 
     try:
-        return render_template('detalleDePelicula.html', page='detallePelicula', pelis = dataP[0])
+        return render_template('detalleDeLaFuncion.html', page='detalleFuncion', pelis = dataP[0])
 
     except:
-        return redirect ('index')
+        return redirect(url_for('index'))
+        
+@app.route('/detalleDePelicula/<id>', methods=['GET'])
+def detalle_pelicula(id):
+
+    #COnsulta Pelicula
+    conP = sql_connection()
+    curP = conP.cursor()
+    statementP = 'SELECT * FROM Peliculas WHERE id_pelicula = ?' 
+    curP.execute(statementP, [id])
+    dataP = curP.fetchall()
+
+
+    #Consulta Comentarios
+    conC = sql_connection()
+    curC = conC.cursor()
+    statementC = 'SELECT * FROM Comentarios WHERE id_pelicula = ?' 
+    curC.execute(statementC, [id])
+    dataC = curC.fetchall()
+
+    try:
+        return render_template('detalleDePelicula.html', page='detallePelicula', pelis = dataP[0], com = dataC)
+
+    except:
+        return redirect(url_for('index'))
     
 
 @app.route('/perfilUsuario/<nom_usuario>', methods=['GET'])
@@ -207,9 +211,40 @@ def eliminar_pelicula(id_pelicula):
     #Statement en SQL eliminando el registro de la tabla películas el id = id_pelicula
 
     pass
-    return render_template('dashboard.html', page='dashboard', user = usuarios, pelis = peliculas)
+    #return render_template('dashboard.html', page='dashboard', user = usuarios, pelis = peliculas)
+
+
+@app.route('/agregarComentario/<id>', methods=['GET','POST'])
+def agregarComentario(id):
+    
+    
+    conP = sql_connection()
+    curP = conP.cursor()
+    statementP = 'SELECT * FROM Peliculas WHERE id_pelicula = ?' 
+    curP.execute(statementP, [id])
+    dataP = curP.fetchall()
+
+    addCom = add_comentario()
+    if addCom.validate_on_submit():
+        
+        conA = sql_connection()
+        curA = conA.cursor()
+        statementA = 'INSERT INTO Comentarios (id_usuario, id_pelicula, texto, calificacion) VALUES (?,?,?,?)' 
+        curA.execute(statementA, [1,id,addCom.comentario.data, addCom.rating.data])
+        conA.commit()
+
+        return redirect('../detalleDePelicula/'+str(id))
+     
+    else:
+        
+        try:
+            return render_template('agregarComentario.html', form=addCom,page='agregarComentario', pelis = dataP[0])
+
+        except:
+            return redirect(url_for('index'))
+
+    
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
