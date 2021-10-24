@@ -38,14 +38,43 @@
                            <!--  <li class="nav-item">
                                 <a class="nav-link" href="#">Confitería</a>
                             </li> -->
-                            <li class="nav-item">
-                                <a class="nav-link {% if page == 'login' %}active{% endif %}"
-                                    href="{{url_for('login')}}">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if page == 'registrar' %}active{% endif %}"
-                                    href="{{url_for('registrar')}}">Regístrate</a>
-                            </li>
+                            
+                            {% if user_tipo == "Usuario" %}
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link {% if page == 'login' %}active{% endif %}"
+                                        href="../perfilUsuario/{{user_id}}">Perfil</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link {% if page == 'login' %}active{% endif %}"
+                                        href="../logout">Cerrar Sesión</a>
+                                </li>
+                        
+                            {% elif user_tipo == "Admin" %}
+
+                                <li class="nav-item">
+                                    <a class="nav-link {% if page == 'login' %}active{% endif %}"
+                                        href="{{url_for('dashboard')}}">Dashboard</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link {% if page == 'login' %}active{% endif %}"
+                                        href="../logout">Cerrar Sesión</a>
+                            
+                            {% else %}
+
+                                <li class="nav-item">
+                                    <a class="nav-link {% if page == 'login' %}active{% endif %}"
+                                        href="{{url_for('login')}}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if page == 'registrar' %}active{% endif %}"
+                                        href="{{url_for('registrar')}}">Regístrate</a>
+                                </li>
+
+                            {% endif %}
+                            
                         </ul>
                         <!-- <form class="d-flex m-0">
                             <input class="form-control me-2" type="search" placeholder="Buscar peliculas"
