@@ -5,9 +5,11 @@ from flask_wtf import FlaskForm, form, recaptcha
 from flask_wtf.recaptcha.fields import RecaptchaField
 from wtforms import StringField, PasswordField, SelectField, TextAreaField
 from wtforms import validators
-from wtforms.fields.core import BooleanField
+from wtforms.fields.core import BooleanField, DateField, DateTimeField, IntegerField
 from wtforms.validators import InputRequired, DataRequired, Length, AnyOf;
 from flask.helpers import flash, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
+
 import sqlite3
 
 app = Flask(__name__)
@@ -44,10 +46,14 @@ class add_comentario(FlaskForm):
     comentario = TextAreaField('Comentario', validators=[InputRequired(message='Escriba un comentario')])
     rating = SelectField('Calificación', choices=[(1,'1'), (2,'2'),(3,'3'), (4,'4'), (5,'5')])
 
+class add_ticket(FlaskForm):
+    fecha_ticket = StringField(label='Fecha y Hora: YY/MM/DD HH:MM ', validators=[InputRequired(message='Digite la Fecha y Hora')])
+    cantidad_ticket = IntegerField('Cantidad Boletas', validators=[InputRequired(message='Indique una cantidad')])
 
 
 @app.route('/', methods=['GET'])
 def index():
+
 
 
     try:
@@ -56,6 +62,7 @@ def index():
     except:
         user_tipo = "Invitado"
         user_id = 0
+
 
 
     conP = sql_connection()
@@ -87,8 +94,9 @@ def login():
 
         try:
             
-            if data [0][2] == form.password.data:
-
+            if (check_password_hash((data[0][2]),form.password.data)):
+            #if data[0][2] == form.password.data: 
+            # Se comenta lina de código que NO busca la password encriptada
                 
                 
                 if data[0][5] == 'Usuario':
@@ -96,19 +104,30 @@ def login():
                     session['user_tipo'] = data[0][5]
                     session['user_id'] = data[0][0]
 
-                    return redirect('perfilUsuario/'+str(data[0][0]))
+                    return redirect('../perfilUsuario/'+str(data[0][0]))
 
                 if data[0][5] == 'Admin':
 
                     session['user_tipo'] = data[0][5]
                     session['user_id'] = data[0][0]
                     
-                    return redirect('dashboard')
+                    return redirect(url_for('dashboard'))
+
+            else:
+                return render_template('login.html', form=form, recaptcha=recaptcha, page='login', user_tipo=user_tipo, user_id=user_id)
 
         except:
-            pass
-            
-    return render_template('login.html', form=form, recaptcha=recaptcha, page='login', user_tipo=user_tipo, user_id=user_id)
+            return render_template('login.html', form=form, recaptcha=recaptcha, page='login', user_tipo=user_tipo, user_id=user_id)
+
+    else:
+        if user_tipo=='Admin':
+            return redirect(url_for('dashboard'))
+        
+        elif user_tipo=='Usuario':
+            return redirect('../perfilUsuario/'+str(user_id))
+
+        else:
+            return render_template('login.html', form=form, recaptcha=recaptcha, page='login', user_tipo=user_tipo, user_id=user_id)
         
  
 @app.route('/registrar', methods=['GET','POST'])
@@ -123,7 +142,8 @@ def registrar():
     
     register = register_form()
     if register.validate_on_submit():
-                
+
+        register.Npassword.data=generate_password_hash(register.Npassword.data)  #Se encripta la password
         con = sql_connection()
         cur = con.cursor()
         statement = 'INSERT INTO Usuarios (nombre_usuario, contraseña, correo, status, rol) VALUES (?,?,?,?,?)' 
@@ -132,7 +152,14 @@ def registrar():
 
         return redirect (url_for('login'))
     else:
-        return render_template('registrar.html', page='registrar', form = register, user_tipo=user_tipo, user_id=user_id)
+        if user_tipo == 'Admin':
+            return redirect(url_for('dashboard'))
+        
+        elif user_tipo == 'Usuario':
+            return redirect('../perfilUsuario/'+str(user_id))
+
+        else: 
+            return render_template('registrar.html', page='registrar', form = register, user_tipo=user_tipo, user_id=user_id)
 
 
 
@@ -165,6 +192,10 @@ def dashboard():
 
     if user_tipo=="Admin":
         return render_template('dashboard.html', page='dashboard', user = dataU, pelis = dataP, user_tipo=user_tipo, user_id=user_id)
+    
+    elif user_tipo=='Usuario':
+        return redirect('../perfilUsuario/'+str(user_id))
+
     else:
         return redirect(url_for('login'))
 
@@ -179,6 +210,8 @@ def detalle_de_funcion(id):
         user_tipo = "Invitado"
         user_id = 0
 
+
+    #Consulta de Pelicula
     conP = sql_connection()
     curP = conP.cursor()
     statementP = 'SELECT * FROM Peliculas WHERE id_pelicula = ?' 
@@ -186,19 +219,33 @@ def detalle_de_funcion(id):
     dataP = curP.fetchall()
 
 
-    if user_tipo != "Invitado":
-        try:
-            return render_template('detalleDeLaFuncion.html', page='detalleFuncion', pelis = dataP[0], user_tipo=user_tipo, user_id=user_id)
+    form = add_ticket()
+    if form.validate_on_submit():
 
-        except:
-            return redirect(url_for('index'))
+        #Consulta para ingresar el ticket
+        conT = sql_connection()
+        curT = conT.cursor()
+        statementT = 'INSERT INTO Tickets (id_pelicula, id_usuario, fecha_ticket, cantidad_ticket) VALUES (?,?,?,?)' 
+        curT.execute(statementT, [id, user_id, form.fecha_ticket.data, form.cantidad_ticket.data])
+        conT.commit()
+
+        return redirect ('../detalleDePelicula/'+str(id))
+
     else:
-        return redirect(url_for('login'))
+        if user_tipo != "Invitado":
+            try:
+                return render_template('detalleDeLaFuncion.html', page='detalleFuncion', form=form,  pelis = dataP[0], user_tipo=user_tipo, user_id=user_id)
+
+            except:
+                return redirect(url_for('index'))
+        else:
+            return redirect(url_for('login'))
 
     
         
 @app.route('/detalleDePelicula/<id>', methods=['GET'])
 def detalle_pelicula(id):
+
 
     try:
         user_tipo = session['user_tipo']
@@ -220,12 +267,21 @@ def detalle_pelicula(id):
     #Consulta Comentarios
     conC = sql_connection()
     curC = conC.cursor()
-    statementC = 'SELECT * FROM Comentarios WHERE id_pelicula = ?' 
+    statementC = 'SELECT * FROM vw_ComentariosxUsuarios WHERE id_pelicula = ?' 
     curC.execute(statementC, [id])
     dataC = curC.fetchall()
 
+    #Consulta Tickets
+
+    conT = sql_connection()
+    curT = conT.cursor()
+    statementT = 'SELECT * FROM vw_TicketsxUsuarios WHERE id_pelicula = ?' 
+    curT.execute(statementT,[id])
+    dataT = curT.fetchall()
+
+
     try:
-        return render_template('detalleDePelicula.html', page='detallePelicula', pelis = dataP[0], com = dataC, user_tipo=user_tipo, user_id=user_id)
+        return render_template('detalleDePelicula.html', page='detallePelicula', pelis = dataP[0], com = dataC, tickets=dataT, user_tipo=user_tipo, user_id=user_id)
 
     except:
         return redirect(url_for('index'))
@@ -234,6 +290,7 @@ def detalle_pelicula(id):
 @app.route('/perfilUsuario/<nom_usuario>', methods=['GET'])
 def perfil_usuario(nom_usuario):
 
+
     try:
         user_tipo = session['user_tipo']
         user_id = session['user_id']
@@ -241,11 +298,37 @@ def perfil_usuario(nom_usuario):
         user_tipo = "Invitado"
         user_id = 0
 
+
+    #Consulta de USUARIOS
+
+    conU = sql_connection()
+    curU = conU.cursor()
+    statementU = 'SELECT * FROM Usuarios WHERE id_usuario = ?' 
+    curU.execute(statementU,[nom_usuario])
+    dataU = curU.fetchall()
+
+    #Consulta de TICKETS
+
+    conT = sql_connection()
+    curT = conT.cursor()
+    statementT = 'SELECT * FROM vw_TicketsxPelicula WHERE id_usuario = ?' 
+    curT.execute(statementT,[nom_usuario])
+    dataT = curT.fetchall()
+
+    #Consulta de Comentarios
+
+    conC = sql_connection()
+    curC = conC.cursor()
+    statementC = 'SELECT * FROM vw_ComentariosxPelicula WHERE id_usuario = ?' 
+    curC.execute(statementC, [nom_usuario])
+    dataC = curC.fetchall()
+
     if user_tipo == "Usuario":
         if str(nom_usuario) == str(user_id):
-            return render_template('perfilUsuario.html', page='perfilUsuario', name = nom_usuario, user_tipo=user_tipo, user_id=user_id)
+            return render_template('perfilUsuario.html', page='perfilUsuario', name = dataU[0], tickets=dataT, com=dataC, user_tipo=user_tipo, user_id=user_id)
         else:
             return redirect('../perfilUsuario/'+str(user_id))
+
     elif user_tipo == "Admin":
         return redirect(url_for('dashboard'))
 
@@ -301,17 +384,12 @@ def agregar_peliculas():
             return redirect('/dashboard')
         else: 
             return render_template('agregarPelicula.html', form = addPelis, user_tipo=user_tipo, user_id=user_id)
+    
+    elif user_tipo== 'Usuario':
+        return redirect('../perfilUsuario/'+str(user_id))
+    
     else:
         return redirect(url_for('login'))
-
-
-@app.route('/dashboard/eliminar/<id_pelicula>')
-def eliminar_pelicula(id_pelicula):
-
-    #Statement en SQL eliminando el registro de la tabla películas el id = id_pelicula
-
-    pass
-    #return render_template('dashboard.html', page='dashboard', user = usuarios, pelis = peliculas)
 
 
 @app.route('/agregarComentario/<id>', methods=['GET','POST'])
@@ -339,7 +417,7 @@ def agregarComentario(id):
             conA = sql_connection()
             curA = conA.cursor()
             statementA = 'INSERT INTO Comentarios (id_usuario, id_pelicula, texto, calificacion) VALUES (?,?,?,?)' 
-            curA.execute(statementA, [1,id,addCom.comentario.data, addCom.rating.data])
+            curA.execute(statementA, [user_id, id,addCom.comentario.data, addCom.rating.data])
             conA.commit()
 
             return redirect('../detalleDePelicula/'+str(id))
@@ -354,6 +432,178 @@ def agregarComentario(id):
     else:
         return redirect(url_for('login'))
 
+
+
+@app.route('/eliminarPelicula/<id_pelicula>')
+def eliminarPelicula(id_pelicula):
+
+    try:
+        user_tipo = session['user_tipo']
+        user_id = session['user_id']
+    except:
+        user_tipo = "Invitado"
+        user_id = 0
+
+
+    if user_tipo == 'Admin':
+
+        #Consulta Peliculas
+        try:
+            conP = sql_connection()
+            curP = conP.cursor()
+            statementP = 'DELETE FROM Peliculas WHERE id_pelicula = ?' 
+            curP.execute(statementP, [id_pelicula])
+            conP.commit()
+
+            return redirect(url_for('dashboard'))
+
+        except:
+
+            return redirect(url_for('index'))
+
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/eliminarUsuario/<id_usuario>')
+def eliminarUsuario(id_usuario):
+
+    try:
+        user_tipo = session['user_tipo']
+        user_id = session['user_id']
+    except:
+        user_tipo = "Invitado"
+        user_id = 0
+
+
+    if user_tipo == 'Admin':
+
+        #Consulta Usuarios
+        try:
+            conU = sql_connection()
+            curU = conU.cursor()
+            statementU = 'DELETE FROM Usuarios WHERE id_usuario = ?' 
+            curU.execute(statementU, [id_usuario])
+            conU.commit()
+
+            return redirect(url_for('dashboard'))
+
+        except:
+
+            return redirect(url_for('index'))
+
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/eliminarComentario/<id_comentario>')
+def eliminarComentario(id_comentario):
+
+    try:
+        user_tipo = session['user_tipo']
+        user_id = session['user_id']
+    except:
+        user_tipo = "Invitado"
+        user_id = 0
+
+
+    if user_tipo == 'Admin':
+
+        
+        try:
+
+            #Consulta ID Pelicula antes de borrar el comentario
+            conP = sql_connection()
+            curP = conP.cursor()
+            statementP = 'SELECT * FROM Comentarios WHERE id_comentario = ?' 
+            curP.execute(statementP, [id_comentario])
+            dataP = curP.fetchall()
+
+            #Consulta Comentario
+            conC = sql_connection()
+            curC = conC.cursor()
+            statementC = 'DELETE FROM Comentarios WHERE id_comentario = ?' 
+            curC.execute(statementC, [id_comentario])
+            conC.commit()
+
+            return redirect('../detalleDePelicula/'+str(dataP[0][2]))
+
+        except:
+
+            return redirect(url_for('index'))
+
+    elif user_tipo == 'Usuario':
+
+        #Consulta Comentarios
+        conC = sql_connection()
+        curC = conC.cursor()
+        statementC = 'SELECT * FROM Comentarios WHERE id_comentario = ?' 
+        curC.execute(statementC, [id_comentario])
+        dataC = curC.fetchall()
+
+        try:
+            if dataC[0][1] == user_id:
+
+                #Consulta de DELETE
+                conC = sql_connection()
+                curC = conC.cursor()
+                statementC = 'DELETE FROM Comentarios WHERE id_comentario = ?' 
+                curC.execute(statementC, [id_comentario])
+                conC.commit()
+
+                return redirect('../perfilUsuario/'+str(user_id))
+
+
+            else:
+                return redirect('../perfilUsuario/'+str(user_id))
+        
+        except:
+
+            return redirect(url_for('index'))
+
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/eliminarTicket/<id_ticket>')
+def eliminarTicket(id_ticket):
+
+    try:
+        user_tipo = session['user_tipo']
+        user_id = session['user_id']
+    except:
+        user_tipo = "Invitado"
+        user_id = 0
+
+
+    if user_tipo == 'Admin':
+
+       
+        try:
+
+            #Consulta ID Pelicula antes de borrar el comentario
+            conP = sql_connection()
+            curP = conP.cursor()
+            statementP = 'SELECT * FROM Tickets WHERE id_ticket = ?' 
+            curP.execute(statementP, [id_ticket])
+            dataP = curP.fetchall()
+
+            #Consulta Tickets
+            conT = sql_connection()
+            curT = conT.cursor()
+            statementT = 'DELETE FROM Tickets WHERE id_ticket = ?' 
+            curT.execute(statementT, [id_ticket])
+            conT.commit()
+
+            return redirect('../detalleDePelicula/'+str(dataP[0][1]))
+
+        except:
+
+            return redirect(url_for('index'))
+
+    else:
+        return redirect(url_for('login'))
+        
 
 @app.route("/logout", methods=['GET','POST'])
 def logout():
