@@ -12,33 +12,42 @@
             <div class="col-md-8">
                 <!-- <h4 class="mt-4">Horarios y teatros</h4> -->
                 <p>Seleccione la fecha, hora y cantidad de boletas</p>
-                <div class="row">
-                    <!-- <div class="col-md-4">
-                        <label for="teatro" class="form-label">Teatro</label>
-                        <select class="form-select" aria-label="Seleccione el teatro">
-                            <option selected>Seleccione el teatro</option>
-                            <option value="1">Mayorca</option>
-                            <option value="2">Viva Envigado</option>
-                            <option value="3">Cine Colombia</option>
-                        </select>
-                    </div> -->
-                    <div class="col-md-4">
-                        <label for="fecha" class="form-label">Fecha</label>
-                        <input type="email" class="form-control" placeholder="DD/MM/AAAA" id="fecha">
+                
+                <form action="../detalleDeLaFuncion/{{pelis[0]}}" method="POST" novalidate>
+                
+                    <div class="row">
+                        <!-- <div class="col-md-4">
+                            <label for="teatro" class="form-label">Teatro</label>
+                            <select class="form-select" aria-label="Seleccione el teatro">
+                                <option selected>Seleccione el teatro</option>
+                                <option value="1">Mayorca</option>
+                                <option value="2">Viva Envigado</option>
+                                <option value="3">Cine Colombia</option>
+                            </select>
+                        </div> -->
+                        <div class="col-md-4">
+                            {{form.csrf_token}}
+                            {{form.fecha_ticket.label(class_='form-label')}}
+                            {{form.fecha_ticket(class_='form-control')}}
+                            {%for error in form.fecha_ticket.errors %}
+                            <span style="color: red">{{error}}</span>
+                            {%endfor %}
+                        </div>
+                    
+                        <div class="col-md-3">
+                            {{form.csrf_token}}
+                            {{form.cantidad_ticket.label(class_='form-label')}}
+                            {{form.cantidad_ticket(class_='form-control')}}
+                            {%for error in form.cantidad_ticket.errors %}
+                            <span style="color: red">{{error}}</span>
+                            {%endfor %}
+                        </div>
+                        <div class="row-cols-md-4">
+                            <br>
+                            <button class="btn btn-primary btn-lg">Comprar</button>
+                        </div>  
                     </div>
-                    <div class="col-md-4">
-                        <label for="hora" class="form-label">Hora</label>
-                        <input type="email" class="form-control" placeholder="HH/MM" id="hora">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="cantBoleta" class="form-label">Cantidad de boletas</label>
-                        <input type="number" class="form-control" placeholder="1" id="cantBoleta">
-                    </div>
-                    <div class="row-cols-md-4">
-                        <br>
-                        <button class="btn btn-primary btn-lg">Comprar</button>
-                    </div>  
-                </div>
+                </form>
                 
                 <!-- <div class="row  align-items-center border-bottom py-2">
                     <div class="col-1">

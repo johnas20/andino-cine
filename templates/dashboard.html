@@ -56,7 +56,7 @@
                     <td>{{pelicula[1]}}</td>
                     <td>{{pelicula[2]}}</td>
                     <td>{{pelicula[3]}}</td>
-                    <td><a href="#">Editar</a> | <a href="#">Eliminar</a> | <a href="#">Ver Comentarios</a></td>
+                    <td><a href="../eliminarPelicula/{{pelicula[0]}}">Eliminar Pelicula</a> <br> ___ <br> <a href="../detalleDePelicula/{{pelicula[0]}}">Ver Pelicula</a></td>
 
                 </tr>
                 {% endfor %}
@@ -101,7 +101,7 @@
                     <td>{{usuarios[1]}}</td>
                     <td>{{usuarios[3]}}</td>
                     <td>{{usuarios[5]}}</td>
-                    <td><a href="#">Editar</a> / <a href="#">Eliminar</a> </td>
+                    <td><a href="../eliminarUsuario/{{usuarios[0]}}">Eliminar</a> </td>
                 </tr>
                 {% endfor %}
             </tbody>

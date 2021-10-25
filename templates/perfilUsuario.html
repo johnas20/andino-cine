@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-md-3">
                 <img src="{{url_for('static',filename='img/user.png')}}" alt="40%" width="40%">
-                <h3>Hola {{name}}</h3>
-                <h2>Usuario</h2>
+                <h3>Hola {{name[1]}}</h3>
+                
             </div>
         </div>
 </section>
@@ -19,44 +19,24 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Nombres</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Juan Carlos">
+                    <label for="disabledTextInput" class="form-label">Nombre Usuario</label>
+                    <input class="form-control" type="text" placeholder="{{name[1]}}" readonly>
                 </div>
             </div>
-            <div class="col-md-3">
+           <!--  <div class="col-md-3">
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Apellidos</label>
                     <input type="text" id="disabledTextInput" class="form-control" placeholder="Moreno Aguilar">
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-3">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1"
-                        placeholder="juan.aguilar@uninorte.com">
+                    <input class="form-control" type="text" placeholder="{{name[3]}}" readonly>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Celular</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="301 345 67 87">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Cambiar contraseña</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Validar contraseña</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
-                </div>
-            </div>
-        </div>
+        
     </div>
 </section>
 
@@ -64,31 +44,65 @@
     <div class="container">
         <div class="table-responsive">
 
-        </div>
-        <h2>Tus tickets</h2>
-        <table class="table table-dark table-sm">
-            <tbody>
-                <tr>
-                    <td scope="row"><img src="img/ticket.png" alt="8%" width="8%"></td>
-                    <td>Nombre de la película</td>
-                    <td>Horario</td>
-                    <td>Lugar</td>
-                </tr>
-                <tr>
+            <h2>Tus tickets</h2>
 
-                    <td scope="row"><img src="img/ticket.png" alt="8%" width="8%"></td>
-                    <td>Nombre de la película</td>
-                    <td>Horario</td>
-                    <td>Lugar</td>
-                </tr>
-                <tr>
-                    <td scope="row"><img src="img/ticket.png" alt="8%" width="8%"></td>
-                    <td>Nombre de la película</td>
-                    <td>Horario</td>
-                    <td>Lugar</td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Tus Tickets</th>
+                        <th scope="col">Nombre de la Pelicula</th>
+                        <th scope="col">Horario</th>
+                        <th scope="col">Cantidad</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td scope="row"><img src="../static/img/ticket.png" alt="5%" width="5%"></td>
+                        <td>{{ticket[5]}}</td>
+                        <td>{{ticket[3]}}</td>
+                        <td>{{ticket[4]}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <br>
+            <br>
+
+            <h2>Tus Comentarios</h2>
+
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Comentarios</th>
+                        <th scope="col">Nombre de la Pelicula</th>
+                        <th scope="col">Calificacion</th>
+                        <th scope="col">Acción</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for Comentario in com %}
+                    <tr>
+                        <td scope="row">{{Comentario[3]}}</td>
+                        <td>{{Comentario[5]}}</td>
+                        <td>{{Comentario[4]}}</td>
+                        <td><a href="../eliminarComentario/{{Comentario[0]}}">Eliminar</a></td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        
+
     </div>
 </section>
 {% endblock %}
