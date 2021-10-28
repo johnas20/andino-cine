@@ -13,6 +13,7 @@
     <div class="container">
         <div class="row">
             {% for peliculas in pelis %}
+            {% if peliculas[3] == 1 %}
             <div class="col-md-3">
                 <a href="/detalleDePelicula/{{peliculas[0]}}" class="text-decoration-none">
                     <div class="card bg-dark text-light border-0 peliculas">
@@ -25,6 +26,7 @@
                     </div>
                 </a>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
