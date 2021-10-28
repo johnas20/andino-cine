@@ -35,6 +35,11 @@ h2 {
     stroke-width: 6px;
 }
 
+/* ELEMENTOS */
+.carousel {
+    height: auto;
+}
+
 .ranquing {
     margin-top: -4.5rem;
     background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0))
