@@ -9,9 +9,8 @@
     <div class="container">
 
         <figure class="figure">
-            <img src="{{url_for('static',filename='img/avatar.png')}}" class="figure-img img-fluid rounded" alt="..."
-                width="150" height="150">
-            <figcaption class="figure-caption text-end">Cambiar Imagen de Perfil</figcaption>
+            <img src="{{url_for('static',filename='img/avatar.png')}}" class="figure-img img-fluid rounded"
+                alt="avatar image" width="150" height="150">
         </figure>
 
         <h4> Administrar Peliculas </h4>
@@ -31,13 +30,13 @@
                 </select>
             </div> -->
             <div class="col-md-4">
-               <!--  <button type="button" class="btn btn-danger">Buscar</button> -->
+                <!--  <button type="button" class="btn btn-danger">Buscar</button> -->
                 <a href="/agregarPelicula/" type="button" class="btn btn-warning"><i
                         class="bi bi-plus-circle"></i>Agregar Pelicula</a>
             </div>
         </form>
 
-  <!--       <h4> Resultados </h4> -->
+        <!--       <h4> Resultados </h4> -->
 
         <table class="table table-dark table-hover">
             <thead>
@@ -56,7 +55,8 @@
                     <td>{{pelicula[1]}}</td>
                     <td>{{pelicula[2]}}</td>
                     <td>{{pelicula[3]}}</td>
-                    <td><a href="../eliminarPelicula/{{pelicula[0]}}">Eliminar Pelicula</a> <br> ___ <br> <a href="../detalleDePelicula/{{pelicula[0]}}">Ver Pelicula</a></td>
+                    <td><a href="../eliminarPelicula/{{pelicula[0]}}">Eliminar Pelicula</a> <br> ___ <br> <a
+                            href="../detalleDePelicula/{{pelicula[0]}}">Ver Pelicula</a></td>
 
                 </tr>
                 {% endfor %}
@@ -68,11 +68,11 @@
     <br>
     <br>
     <br>
-    
-    
+
+
     <div class="container">
         <h4> Administrar Usuarios</h4>
-     <!--    <form class="row">
+        <!--    <form class="row">
             <div class="col-md-4">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
             </div>

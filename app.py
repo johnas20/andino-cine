@@ -161,9 +161,6 @@ def registrar():
         else: 
             return render_template('registrar.html', page='registrar', form = register, user_tipo=user_tipo, user_id=user_id)
 
-
-
-
 @app.route('/dashboard/', methods=['GET','POST'])
 def dashboard():
 

@@ -16,9 +16,9 @@
                 <h3>{{pelis[1]}}</h3>
                 <p>{{pelis[2]}}</p>
 
-                  
-                <form action="../agregarComentario/{{pelis[0]}}" method="POST", novalidate>
-                    
+
+                <form action="../agregarComentario/{{pelis[0]}}" method="POST" , novalidate>
+
                     <div class="mb-3">
                         {{form.csrf_token}}
                         {{form.comentario.label(class_='form-label')}}
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="mb-3">
-                       
+
                         <div class="mb-3">
                             {{form.csrf_token}}
                             {{form.rating.label(class_='form-label')}}
@@ -38,12 +38,12 @@
                             <span style="color: red">{{error}}</span>
                             {%endfor %}
                         </div>
-                        
+
                     </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Registrar</button>
+                    <button class="btn btn-lg btn-primary" type="submit">Comentar</button>
                 </form>
-        
-        
+
+
             </div>
         </div>
 </section>

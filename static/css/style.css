@@ -10,6 +10,11 @@ a, .nav-link {
 a:hover, .nav-link:hover, a:focus, .nav-link:focus {
     color:#fff;
 }
+
+h2 {
+    border-left: var(--bs-accent) 3px solid;
+    padding-left: 10px;
+}
 /*LOGO*/
 .logo {
     width: 140px;
@@ -58,4 +63,43 @@ a:hover, .nav-link:hover, a:focus, .nav-link:focus {
 
 .bg-primary {
     background-color: var(--bs-accent) !important
+}
+
+.ticket {
+    margin-top: 20px;
+    display: flex;
+    border: var(--bs-accent) solid 1px;
+    align-items: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.ticket img {
+    height: auto;
+}
+
+.ticket .card-body {
+    border-right: var(--bs-accent) dashed 1px;
+}
+
+.comentario {
+    padding: 20px;
+}
+
+.comentario .coment-text {
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.peliculas {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,0.1) !important;
+    transition: all ease .25s;
+}
+
+.peliculas:hover {
+    transform: translate(0,-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
 }

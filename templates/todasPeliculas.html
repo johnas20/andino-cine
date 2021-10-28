@@ -12,13 +12,12 @@
 <section class="my-4">
     <div class="container">
         <div class="row">
-            {% for peliculas in pelis  %}
+            {% for peliculas in pelis %}
             <div class="col-md-3">
                 <a href="/detalleDePelicula/{{peliculas[0]}}" class="text-decoration-none">
-                    <div class="card bg-dark text-light border-0">
-                        <img src="{{url_for('static',filename='img/')}}{{peliculas[4]}}" class="card-img-top"
-                            alt="...">
-                 
+                    <div class="card bg-dark text-light border-0 peliculas">
+                        <img src="{{url_for('static',filename='img/')}}{{peliculas[4]}}" class="card-img-top" alt="...">
+
 
                         <div class="card-body">
                             <h5 class="card-title">{{peliculas[1]}}</h5>

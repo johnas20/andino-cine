@@ -5,25 +5,24 @@
     <div class="container">
         <h2>Perfil del usuario</h2>
         <div class="row">
-            <div class="col-md-3">
-                <img src="{{url_for('static',filename='img/user.png')}}" alt="40%" width="40%">
-                <h3>Hola {{name[1]}}</h3>
-                
+            <div class="col-md-3 d-flex">
+                <img src="{{url_for('static',filename='img/user.png')}}" alt="image user">
+                <h4 class="ms-3 mt-3">Hola!<br />{{name[1]}}</h4>
             </div>
         </div>
 </section>
 
 <section class="my-4">
     <div class="container">
-        <h2>Datos personales</h2>
+        <h2 class="mt-5">Datos personales</h2>
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Nombre Usuario</label>
-                    <input class="form-control" type="text" placeholder="{{name[1]}}" readonly>
+                    <input class="form-control" type="text" value="{{name[1]}}" readonly>
                 </div>
             </div>
-           <!--  <div class="col-md-3">
+            <!--  <div class="col-md-3">
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Apellidos</label>
                     <input type="text" id="disabledTextInput" class="form-control" placeholder="Moreno Aguilar">
@@ -32,77 +31,55 @@
             <div class="col-md-3">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input class="form-control" type="text" placeholder="{{name[3]}}" readonly>
+                    <input class="form-control" type="text" value="{{name[3]}}" readonly>
                 </div>
             </div>
         </div>
-        
-    </div>
-</section>
-
-<section class="my-4">
-    <div class="container">
-        <div class="table-responsive">
-
-            <h2>Tus tickets</h2>
-
-            <table class="table table-dark table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Tus Tickets</th>
-                        <th scope="col">Nombre de la Pelicula</th>
-                        <th scope="col">Horario</th>
-                        <th scope="col">Cantidad</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    {% for ticket in tickets %}
-                    <tr>
-                        <td scope="row"><img src="../static/img/ticket.png" alt="5%" width="5%"></td>
-                        <td>{{ticket[5]}}</td>
-                        <td>{{ticket[3]}}</td>
-                        <td>{{ticket[4]}}</td>
-                        
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-
-            <br>
-            <br>
-
-            <h2>Tus Comentarios</h2>
-
-            <table class="table table-dark table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Comentarios</th>
-                        <th scope="col">Nombre de la Pelicula</th>
-                        <th scope="col">Calificacion</th>
-                        <th scope="col">Acción</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    {% for Comentario in com %}
-                    <tr>
-                        <td scope="row">{{Comentario[3]}}</td>
-                        <td>{{Comentario[5]}}</td>
-                        <td>{{Comentario[4]}}</td>
-                        <td><a href="../eliminarComentario/{{Comentario[0]}}">Eliminar</a></td>
-                        
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
+        <h2 class="mt-5">Tus tickets</h2>
+        <div class="row">
+            {% for ticket in tickets %}
+            <div class="col-md-4">
+                <div class="ticket">
+                    <img src="../static/img/ticket.png" alt="image ticket" class="mx-3">
+                    <div class="card-body">
+                        <p class="m-0">Pelicula:
+                            <span class="h5">{{ticket[5]}}</span>
+                        </p>
+                        <p class="m-0">Horario: <b>{{ticket[3]}}</b></p>
+                    </div>
+                    <div class="text-center mx-2">
+                        <p class="mt-3">Cantidad: <br />
+                            <b class="h2">{{ticket[4]}}</b>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        
 
+        <h2 class="mt-5">Tus Comentarios</h2>
+        <div class="row">
+            {% for Comentario in com %}
+            <div class="col-md-6">
+                <div class="comentario">
+                    <p class="mb-0">Sobre la pelicula: <b>{{Comentario[5]}}</b></p>
+                    <p class="coment-text"><b>Comentarios:</b><br />
+                        {{Comentario[3]}}</p>
+                    <div class="text-light">
+                        {% for count in range(Comentario[4]) %}
+                        <i class="bi bi-star-fill"></i>
+                        {% endfor %}
+                        {% for count in range(Comentario[4],5) %}
+                        <i class="bi bi-star"></i>
+                        {% endfor %}
+                    </div>
+                    <div class="text-end">
+                        <a href="../eliminarComentario/{{Comentario[0]}}">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </section>
 {% endblock %}

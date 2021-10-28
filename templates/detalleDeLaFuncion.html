@@ -12,9 +12,9 @@
             <div class="col-md-8">
                 <!-- <h4 class="mt-4">Horarios y teatros</h4> -->
                 <p>Seleccione la fecha, hora y cantidad de boletas</p>
-                
+
                 <form action="../detalleDeLaFuncion/{{pelis[0]}}" method="POST" novalidate>
-                
+
                     <div class="row">
                         <!-- <div class="col-md-4">
                             <label for="teatro" class="form-label">Teatro</label>
@@ -25,7 +25,7 @@
                                 <option value="3">Cine Colombia</option>
                             </select>
                         </div> -->
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             {{form.csrf_token}}
                             {{form.fecha_ticket.label(class_='form-label')}}
                             {{form.fecha_ticket(class_='form-control')}}
@@ -33,7 +33,7 @@
                             <span style="color: red">{{error}}</span>
                             {%endfor %}
                         </div>
-                    
+
                         <div class="col-md-3">
                             {{form.csrf_token}}
                             {{form.cantidad_ticket.label(class_='form-label')}}
@@ -45,10 +45,10 @@
                         <div class="row-cols-md-4">
                             <br>
                             <button class="btn btn-primary btn-lg">Comprar</button>
-                        </div>  
+                        </div>
                     </div>
                 </form>
-                
+
                 <!-- <div class="row  align-items-center border-bottom py-2">
                     <div class="col-1">
                         <h5 class="h2">2D</h5>
