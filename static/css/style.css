@@ -16,6 +16,18 @@ h2 {
     padding-left: 10px;
 }
 /*LOGO*/
+.table>thead th {
+    background: #2f353a;
+}
+
+.table>thead th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.table>thead th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
 .logo {
     width: 140px;
 }
@@ -36,8 +48,34 @@ h2 {
 }
 
 /* ELEMENTOS */
+
+.carousel-control-next, .carousel-control-prev {
+    opacity: 1;
+    width: 30px;
+}
+
+.carousel-control-prev-icon {
+    transform: translateX(-15px);
+}
+
+.carousel-control-next-icon {
+    transform: translateX(15px);
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    background-color: var(--bs-accent);
+    border-radius: 50%;
+    background-size: 60%;
+    border: solid 3px #212529;
+}
 .carousel {
     height: auto;
+}
+
+.carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
 .ranquing {
@@ -70,6 +108,16 @@ h2 {
     background-color: var(--bs-accent) !important
 }
 
+.btn-outline-primary {
+    color: var(--bs-accent);
+    border-color: var(--bs-accent);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--bs-accent);
+    border-color: var(--bs-accent);
+}
+
 .ticket {
     margin-top: 20px;
     display: flex;
@@ -87,7 +135,8 @@ h2 {
 }
 
 .comentario {
-    padding: 20px;
+    padding: 10px;
+    border-top: solid 1px #383e44;
 }
 
 .comentario .coment-text {
@@ -107,4 +156,8 @@ h2 {
 .peliculas:hover {
     transform: translate(0,-5px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.item-img-table {
+    width: 60px;
 }
