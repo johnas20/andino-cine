@@ -34,7 +34,7 @@
                         {% endfor %}
                     </div>
                     <div class="text-end">
-                        {% if user_tipo == "Admin" %}
+                        {% if user_tipo == "Admin" or user_tipo == "Superadmin" %}
                         <a href="../eliminarComentario/{{comentario[0]}}" class="btn btn-primary btn-sm"><i
                                 class="bi bi-trash-fill"></i> Eliminar</a>
                         {% endif %}
@@ -49,7 +49,7 @@
                             class="bi bi-chat-right-text-fill"></i> Agregar Comentario</a>
                 </div>
 
-                {% if user_tipo == "Admin" %}
+                {% if user_tipo == "Admin" or user_tipo == "Superadmin" %}
 
 
                 <h4 class="mt-4"> Tickets </h4>
@@ -62,14 +62,14 @@
                         <div class="ticket">
                             <img src="../static/img/ticket.png" alt="image ticket" class="mx-3">
                             <div class="card-body">
-                                <p class="m-0">Pelicula:
+                                <p class="m-0">Usuario:
                                     <span class="h5">{{ticket[5]}}</span>
                                 </p>
-                                <p class="m-0">Horario: <b>{{ticket[3]}}</b></p>
+                                <p class="m-0">Horario: <b>{{ticket[4]}}</b></p>
                             </div>
                             <div class="text-center mx-2">
                                 <p class="mt-3">Cantidad: <br />
-                                    <b class="h2">{{ticket[4]}}</b>
+                                    <b class="h2">{{ticket[3]}}</b>
                                 </p>
                             </div>
                         </div>

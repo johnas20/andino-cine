@@ -51,7 +51,7 @@
                                     Sesión</a>
                             </li>
 
-                            {% elif user_tipo == "Admin" %}
+                            {% elif user_tipo == "Admin" or user_tipo == "Superadmin" %}
 
                             <li class="nav-item">
                                 <a class="nav-link {% if page == 'login' %}active{% endif %}"
@@ -62,7 +62,7 @@
                                 <a class="nav-link {% if page == 'login' %}active{% endif %}" href="../logout">Cerrar
                                     Sesión</a>
 
-                                {% else %}
+                            {% else %}
 
                             <li class="nav-item">
                                 <a class="nav-link {% if page == 'login' %}active{% endif %}"
@@ -84,10 +84,27 @@
                     </div>
                 </div>
             </nav>
+
+            {% for message in get_flashed_messages()%}
+            
+            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{message}}
+            </div>
+            {% endfor %}
+
+            
+           
+           
         </header>
 
+        
         {% block content %}
+
+       
         {% endblock %}
+
 
         <footer class="bd-footer py-2 mt-4 bg-dark border-top">
             <div class="container py-2">
