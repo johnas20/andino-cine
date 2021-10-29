@@ -46,7 +46,9 @@
                     <th>Nombre</th>
                     <th>Sinopsis</th>
                     <th style="width: 120px">En Cartelera</th>
+                    <th>Max Tickets</th>
                     <th>Acciones</th>
+                    <th>Cambiar Cartelera</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,11 +61,36 @@
                     <th>{{pelicula[0]}}</th>
                     <td>{{pelicula[1]}}</td>
                     <td>{{pelicula[2]}}</td>
-                    <td>{{pelicula[3]}}</td>
+                    <td>
+                        {% if pelicula[3] == 1%}
+                            Si
+                        {% elif pelicula[3] == 0%}
+                            No
+                        {% endif %}
+
+                    </td>
+                    <td>
+
+                        Tarde: {{pelicula[5]}}
+                        <br>
+                        Noche: {{pelicula[6]}}
+
+                    </td>
                     <td><a href="../eliminarPelicula/{{pelicula[0]}}" class="btn btn-primary btn-sm"><i
                                 class="bi bi-trash-fill"></i> Eliminar
                             Pelicula</a> <a href="../detalleDePelicula/{{pelicula[0]}}"
                             class="btn btn-secondary btn-sm mt-2"><i class="bi bi-eye-fill"></i> Ver Pelicula</a>
+                    </td>
+
+                    <td>
+                        {% if pelicula[3] == 1%}  
+                            <a href="../modificarCartelera/{{pelicula[0]}}/0" class="btn btn-warning btn-sm"><i
+                                class="bi bi-x-circle-fill"></i> 
+
+                        {% elif pelicula[3] == 0%}
+                            <a href="../modificarCartelera/{{pelicula[0]}}/1" class="btn btn-success btn-sm"><i
+                                class="bi bi-check-circle-fill"></i>
+                        {% endif %}
                     </td>
 
                 </tr>
@@ -99,6 +126,10 @@
                     <th scope="col">Correo</th>
                     <th scope="col">Rol</th>
                     <th scope="col">Acciones</th>
+                    {% if user_tipo == "Superadmin" %}
+                    <th scope="col">Cambiar Rol</th>
+                    {% endif %}
+
 
                 </tr>
             </thead>
@@ -109,8 +140,35 @@
                     <td>{{usuarios[1]}}</td>
                     <td>{{usuarios[3]}}</td>
                     <td>{{usuarios[5]}}</td>
-                    <td><a href="../eliminarUsuario/{{usuarios[0]}}" class="btn btn-primary btn-sm"><i
-                                class="bi bi-trash-fill"></i> Eliminar</a> </td>
+                    <td>
+                        {% if usuarios[5] != "Superadmin" %}
+
+                        
+                            <a href="../eliminarUsuario/{{usuarios[0]}}" class="btn btn-primary btn-sm"><i
+                                    class="bi bi-trash-fill"></i> Eliminar</a>
+
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user_tipo == "Superadmin" %}
+
+                            {% if usuarios[5] == "Usuario" %}
+
+                                <a href="../modificarUsuario/{{usuarios[0]}}/Admin" class="btn btn-warning btn-sm"><i
+                                    class="bi bi-pencil"></i> Admin </a>
+
+                            {% endif %}
+
+                            {% if usuarios[5] == "Admin" %}
+
+                                <a href="../modificarUsuario/{{usuarios[0]}}/Usuario" class="btn btn-warning btn-sm"><i
+                                    class="bi bi-pencil"></i> Usuario </a>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

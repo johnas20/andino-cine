@@ -27,9 +27,9 @@
                         </div> -->
                         <div class="col-md-5">
                             {{form.csrf_token}}
-                            {{form.fecha_ticket.label(class_='form-label')}}
-                            {{form.fecha_ticket(class_='form-control')}}
-                            {%for error in form.fecha_ticket.errors %}
+                            {{form.horario.label(class_='form-label')}}
+                            {{form.horario(class_='form-control')}}
+                            {%for error in form.horario.errors %}
                             <span style="color: red">{{error}}</span>
                             {%endfor %}
                         </div>
@@ -106,6 +106,12 @@
                     <img src="{{url_for('static',filename='img/')}}{{pelis[4]}}" class="w-50 h-auto" class="mr-2">
                     <div class="ms-3">
                         <p class="h2 m-0">{{pelis[1]}}</p>
+                        <br>
+                        <p class="h4 m-0">Disponibilidad Tickets:</p>
+                        <br>
+                        <p class="h5 m-0">Tarde: {{disp_tarde}} </p>
+                        <p class="h5 m-0">Noche: {{disp_noche}} </p>
+
                         <!-- <p class="m-0 h3">2D</p>
                         <p class="m-0">03:00 p.m.</p>
                         <p>Boleta por persona: <strong>$15.000</strong></p>
